@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PizzaAppINFM308">
         <activity
+            android:name=".pizzaOrder.PizzaOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".pizzasList.PizzasListActivity"
             android:exported="true">
             <intent-filter>
