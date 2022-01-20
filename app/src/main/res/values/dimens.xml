@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="banner_height">160dp</dimen>
+    <dimen name="pizza_banner_title_font_size">32sp</dimen>
+</resources>
