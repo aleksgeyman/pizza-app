@@ -68,6 +68,7 @@
 
     <Button
         android:id="@+id/submit_button"
+        android:enabled="false"
         android:layout_marginTop="@dimen/large_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
