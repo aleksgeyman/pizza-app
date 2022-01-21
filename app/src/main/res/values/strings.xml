@@ -7,6 +7,9 @@
     <string name="buy_pizzas_text">Pizzas to buy:</string>
     <string name="decrement_button_title">-</string>
     <string name="increment_button_title">+</string>
+    <string name="address_text">Address for delivery:</string>
+    <string name="select_date_title">Select Date For Delivery</string>
+    <string name="submit_button_title">SUBMIT</string>
     <string-array name="cities_array">
         <item>Sofia</item>
         <item>Plovdiv</item>
