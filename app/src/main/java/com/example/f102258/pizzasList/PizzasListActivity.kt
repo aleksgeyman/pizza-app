@@ -31,6 +31,7 @@ class PizzasListActivity : AppCompatActivity() {
 
     private fun pizzaOnTap(pizza: Pizza) {
         val intent = Intent(this, PizzaOrderActivity::class.java)
+        intent.putExtra(R.string.pizza_id.toString(), pizza.id)
         startActivity(intent)
     }
 }

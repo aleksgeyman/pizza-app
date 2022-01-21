@@ -9,12 +9,25 @@ import java.io.IOException
 
 class PizzasRepository(private val context: Context) {
 
-    // Returns List of Pizza objects.
+    private val pizzas = fetchPizzas()
+
     fun getPizzas(): LiveData<List<Pizza>> {
+        return pizzas
+    }
+
+    fun getPizza(id: Int): Pizza? {
+        pizzas.value?.let { pizzas ->
+            return pizzas.firstOrNull { it.id == id }
+        }
+        return null
+    }
+
+    // Returns List of Pizza objects.
+    private fun fetchPizzas(): LiveData<List<Pizza>> {
         val jsonFileString = getJsonDataFromAsset(context, "pizzas.json")
         val gson = Gson()
         val listPizzaType = object : TypeToken<List<Pizza>>() {}.type
-       return MutableLiveData(gson.fromJson(jsonFileString, listPizzaType))
+        return MutableLiveData(gson.fromJson(jsonFileString, listPizzaType))
     }
 
     // Returns optional string from a json file in app assets if the file exists.
