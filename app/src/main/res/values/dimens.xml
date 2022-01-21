@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="small_padding">8dp</dimen>
     <dimen name="medium_padding">16dp</dimen>
+    <dimen name="large_padding">32dp</dimen>
     <dimen name="banner_height">160dp</dimen>
     <dimen name="pizza_banner_title_font_size">32sp</dimen>
+    <dimen name="regular_icon_size">64dp</dimen>
+    <dimen name="medium_large_font_size">16sp</dimen>
+    <dimen name="large_font_size">20sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
 </resources>

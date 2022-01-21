@@ -18,6 +18,8 @@ class PizzasAdapter(private val onTap: (Pizza) -> Unit) :
     class PizzaViewHolder(itemView: View, val onTap: (Pizza) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         private val pizzaNameTextView: TextView = itemView.findViewById(R.id.pizza_name)
+        private val pizzaDescriptionTextView: TextView = itemView.findViewById(R.id.pizza_description)
+        private val pizzapriceTextView: TextView = itemView.findViewById(R.id.pizza_price)
         private var currentPizza: Pizza? = null
 
         init {
@@ -32,6 +34,8 @@ class PizzasAdapter(private val onTap: (Pizza) -> Unit) :
             currentPizza = pizza
 
             pizzaNameTextView.text = pizza.name
+            pizzaDescriptionTextView.text = pizza.description
+            pizzapriceTextView.text = pizza.price.toString()
         }
     }
 
