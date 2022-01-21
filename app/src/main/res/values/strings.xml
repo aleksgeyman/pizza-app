@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pizza_banner_title">Most Delicious Italian Pizza</string>
     <string name="pizza_id">pizzaId</string>
+    <string name="buy_pizzas_text">Pizzas to buy:</string>
+    <string name="decrement_button_title">-</string>
+    <string name="increment_button_title">+</string>
 </resources>
