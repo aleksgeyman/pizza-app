@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -48,6 +49,12 @@ class PizzaOrderActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         stopService()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun configureTextViews() {
