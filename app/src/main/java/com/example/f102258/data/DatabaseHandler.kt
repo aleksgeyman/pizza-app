@@ -1,5 +1,6 @@
 package com.example.f102258.data
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -7,95 +8,90 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
 
-/*
-//creating the database logic, extending the SQLiteOpenHelper base class
-class DatabaseHandler(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION) {
+class DatabaseHandler(context: Context) :
+    SQLiteOpenHelper(context, dbName, null, dbVersion) {
     companion object {
-        private val DATABASE_VERSION = 1
-        private val DATABASE_NAME = "EmployeeDatabase"
-        private val TABLE_CONTACTS = "EmployeeTable"
-        private val KEY_ID = "id"
-        private val KEY_NAME = "name"
-        private val KEY_EMAIL = "email"
+        private const val dbVersion = 1
+        private const val dbName = "PizzasDatabase"
+        private const val tablePizzas = "PizzasTable"
+        private const val keyId = "id"
+        private const val keyName = "name"
+        private const val keyDescription = "description"
     }
+
     override fun onCreate(db: SQLiteDatabase?) {
-        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        //creating table with fields
-        val CREATE_CONTACTS_TABLE = ("CREATE TABLE " + TABLE_CONTACTS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT" + ")")
-        db?.execSQL(CREATE_CONTACTS_TABLE)
+        val createTable = ("CREATE TABLE " + tablePizzas + "("
+                + keyId + " INTEGER PRIMARY KEY," + keyName + " TEXT,"
+                + keyDescription + " TEXT" + ")")
+        db?.execSQL(createTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        //  TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        db!!.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS)
+        db!!.execSQL("DROP TABLE IF EXISTS $tablePizzas")
         onCreate(db)
     }
 
-
-    //method to insert data
-    fun addEmployee(emp: EmpModelClass):Long{
+    fun addPizza(pizza: Pizza): Long {
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_ID, emp.userId)
-        contentValues.put(KEY_NAME, emp.userName) // EmpModelClass Name
-        contentValues.put(KEY_EMAIL,emp.userEmail ) // EmpModelClass Phone
-        // Inserting Row
-        val success = db.insert(TABLE_CONTACTS, null, contentValues)
-        //2nd argument is String containing nullColumnHack
-        db.close() // Closing database connection
+        contentValues.put(keyId, pizza.id)
+        contentValues.put(keyName, pizza.name)
+        contentValues.put(keyDescription, pizza.description)
+        val success = db.insert(tablePizzas, null, contentValues)
+        db.close()
         return success
     }
-    //method to read data
-    fun viewEmployee():List<EmpModelClass>{
-        val empList:ArrayList<EmpModelClass> = ArrayList<EmpModelClass>()
-        val selectQuery = "SELECT  * FROM $TABLE_CONTACTS"
+
+    @SuppressLint("Range", "Recycle")
+    fun getPizzas(): List<Pizza> {
+        val pizzas = ArrayList<Pizza>()
+        val selectQuery = "SELECT  * FROM $tablePizzas"
         val db = this.readableDatabase
         var cursor: Cursor? = null
-        try{
+        try {
             cursor = db.rawQuery(selectQuery, null)
-        }catch (e: SQLiteException) {
+        } catch (e: SQLiteException) {
             db.execSQL(selectQuery)
             return ArrayList()
         }
-        var userId: Int
-        var userName: String
-        var userEmail: String
+        var pizzaId: Int
+        var pizzaName: String
+        var pizzaDescription: String
         if (cursor.moveToFirst()) {
             do {
-                userId = cursor.getInt(cursor.getColumnIndex("id"))
-                userName = cursor.getString(cursor.getColumnIndex("name"))
-                userEmail = cursor.getString(cursor.getColumnIndex("email"))
-                val emp= EmpModelClass(userId = userId, userName = userName, userEmail = userEmail)
-                empList.add(emp)
+                pizzaId = cursor.getInt(cursor.getColumnIndex(keyId))
+                pizzaName = cursor.getString(cursor.getColumnIndex(keyName))
+                pizzaDescription = cursor.getString(cursor.getColumnIndex(keyDescription))
+                val emp = Pizza(
+                    id = pizzaId,
+                    name = pizzaName,
+                    description = pizzaDescription,
+                    size = "",
+                    price = 0.0
+                )
+                pizzas.add(emp)
             } while (cursor.moveToNext())
         }
-        return empList
+        return pizzas
     }
-    //method to update data
-    fun updateEmployee(emp: EmpModelClass):Int{
-        val db = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(KEY_ID, emp.userId)
-        contentValues.put(KEY_NAME, emp.userName) // EmpModelClass Name
-        contentValues.put(KEY_EMAIL,emp.userEmail ) // EmpModelClass Email
 
-        // Updating Row
-        val success = db.update(TABLE_CONTACTS, contentValues,"id="+emp.userId,null)
-        //2nd argument is String containing nullColumnHack
-        db.close() // Closing database connection
-        return success
-    }
-    //method to delete data
-    fun deleteEmployee(emp: EmpModelClass):Int{
+    fun updatePizza(pizza: Pizza): Int {
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_ID, emp.userId) // EmpModelClass UserId
-        // Deleting Row
-        val success = db.delete(TABLE_CONTACTS,"id="+emp.userId,null)
-        //2nd argument is String containing nullColumnHack
-        db.close() // Closing database connection
+        contentValues.put(keyId, pizza.id)
+        contentValues.put(keyName, pizza.name)
+        contentValues.put(keyDescription, pizza.description)
+        val success = db.update(tablePizzas, contentValues, "id=" + pizza.id, null)
+        db.close()
         return success
     }
-}*/
+
+    fun deletePizza(pizza: Pizza): Int {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(keyId, pizza.id)
+        val success = db.delete(tablePizzas, "id=" + pizza.id, null)
+        db.close()
+        return success
+    }
+}
