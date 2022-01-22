@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.example.f102258.R
+import com.example.f102258.data.DatabaseHandler
 import com.example.f102258.data.Pizza
 import com.example.f102258.pizzasList.PizzasListViewModel
 import com.example.f102258.pizzasList.PizzasListViewModelFactory
@@ -55,6 +57,16 @@ class PizzaOrderActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_add_to_fav) {
+            DatabaseHandler(this).addPizza(viewModel.pizza!!)
+        } else if (item.itemId == R.id.menu_show_fav) {
+            val pizzas = DatabaseHandler(this).getPizzas()
+            pizzas.forEach {it -> Log.i("Pizza", it.name)}
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun configureTextViews() {
