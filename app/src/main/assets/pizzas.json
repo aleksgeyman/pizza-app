@@ -1,37 +1,72 @@
 [
-        {
-            "id": 0,
-            "name": "Valeta",
-            "description": "Unique Italian pizza dough, flavoured with pesto and mascarpone, with prosciutto cotto, fresh arugula and parmesan cheese flakes.",
-            "size": "420 grams",
-            "price": 17.90
-        },
-        {
-            "id": 1,
-            "name": "Verde",
-            "description": "Unique Italian pizza dough with pesto base, baby spinach, Philadelphia cream cheese, mozzarella and two eggs.",
-            "size": "540 grams",
-            "price": 19.90
-        },
-        {
-            "id": 2,
-            "name": "Double eggs",
-            "description": "Unique Italian pizza dough perfectly matched with a tomato base, ham, mushrooms, mozzarella, two eggs and a pinch of oregano.",
-            "size": "530 grams",
-            "price": 13.70
-        },
-        {
-            "id": 3,
-            "name": "Diablo",
-            "description": "Devilishly delicious pizza with unique Italian pizza dough, flavoured with green chili peppers, mushrooms, with ham, tomato sauce, mozzarella and a pinch of oregano.",
-            "size": "490 grams",
-            "price": 11.20
-        },
-        {
-            "id": 4,
-            "name": "Kalabreze",
-            "description": "Unique Italian pizza dough with a tomato sauce base, smoked cheese, mushrooms, spicy Pepperoni salami, red peppers and mozzarella.",
-            "size": "540 grams",
-            "price": 15.90
-        }
-    ]
+  {
+    "id": 0,
+    "name": "Valeta",
+    "description": "Unique Italian pizza dough, flavoured with pesto and mascarpone, with prosciutto cotto, fresh arugula and parmesan cheese flakes.",
+    "size": "420 grams",
+    "price": 17.90
+  },
+  {
+    "id": 1,
+    "name": "Verde",
+    "description": "Unique Italian pizza dough with pesto base, baby spinach, Philadelphia cream cheese, mozzarella and two eggs.",
+    "size": "540 grams",
+    "price": 19.90
+  },
+  {
+    "id": 2,
+    "name": "Double eggs",
+    "description": "Unique Italian pizza dough perfectly matched with a tomato base, ham, mushrooms, mozzarella, two eggs and a pinch of oregano.",
+    "size": "530 grams",
+    "price": 13.70
+  },
+  {
+    "id": 3,
+    "name": "Diablo",
+    "description": "Devilishly delicious pizza with unique Italian pizza dough, flavoured with green chili peppers, mushrooms, with ham, tomato sauce, mozzarella and a pinch of oregano.",
+    "size": "490 grams",
+    "price": 11.20
+  },
+  {
+    "id": 4,
+    "name": "Kalabreze",
+    "description": "Unique Italian pizza dough with a tomato sauce base, smoked cheese, mushrooms, spicy Pepperoni salami, red peppers and mozzarella.",
+    "size": "540 grams",
+    "price": 15.90
+  },
+  {
+    "id": 5,
+    "name": "Calzone",
+    "description": "Traditional folded Italian pizza made from unique Italian pizza dough, filled with mozzarella, ham, melted cheese and oregano on a tomato base.",
+    "size": "490 grams",
+    "price": 12.40
+  },
+  {
+    "id": 6,
+    "name": "Capra with goat's cheese",
+    "description": "Unique Italian pizza dough garnished with French goat cheese, walnuts, dates, honey and thyme on a soft cream base.",
+    "size": "480 grams",
+    "price": 22.90
+  },
+  {
+    "id": 7,
+    "name": "New Caprese",
+    "description": "Unique Italian pizza dough of your choice, flavoured with pesto and mozzarella, and garnished with colorful cherry tomatoes and basil.",
+    "size": "400 grams",
+    "price": 14.90
+  },
+  {
+    "id": 8,
+    "name": "Katano",
+    "description": "Unique Italian pizza dough with tomato base, bacon, ham, mozzarella, olives and a pinch of oregano.",
+    "size": "570 grams",
+    "price": 15.80
+  },
+  {
+    "id": 9,
+    "name": "Margarita",
+    "description": "Italian traditional pizza with unique Italian pizza dough of your choice with tomato base, mozzarella and oregano.",
+    "size": "370 grams",
+    "price": 7.80
+  }
+]

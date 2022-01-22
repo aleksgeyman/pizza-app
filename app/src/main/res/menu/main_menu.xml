@@ -2,8 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu"
-        android:title="My Menu"
+    <item
+        android:id="@+id/menu_order"
+        android:title="@string/menu_my_order"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_add_to_fav"
+        android:title="@string/menu_add_to_favorites"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_show_fav"
+        android:title="@string/menu_show_favorites"
         app:showAsAction="never" />
 
 </menu>
