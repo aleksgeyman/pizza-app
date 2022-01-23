@@ -50,6 +50,14 @@ class PizzaOrderViewModel(private val pizzasRepository: PizzasRepository) : View
             db.addPizza(pizza!!)
         }
     }
+
+    fun removePizzaFromFavorite(context: Context) {
+        val db = DatabaseHandler(context)
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            db.deletePizza(pizza!!)
+        }
+    }
 }
 
 class PizzaOrderViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

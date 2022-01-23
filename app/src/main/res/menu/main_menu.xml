@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_order"
-        android:title="@string/menu_my_order"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/menu_add_to_fav"
         android:title="@string/menu_add_to_favorites"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_remove_from_fav"
+        android:title="@string/menu_remove_from_favorites"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_show_fav"
@@ -17,6 +17,10 @@
     <item
         android:id="@+id/menu_send_feedback"
         android:title="@string/menu_send_feedback"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_about"
+        android:title="@string/menu_about"
         app:showAsAction="never" />
 
 </menu>

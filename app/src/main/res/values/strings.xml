@@ -10,14 +10,17 @@
     <string name="address_text">Address for delivery:</string>
     <string name="select_date_title">Select Date For Delivery</string>
     <string name="submit_button_title">SUBMIT</string>
-    <string name="menu_my_order">My Order</string>
     <string name="menu_add_to_favorites">Add to Favorites</string>
     <string name="menu_show_favorites">Show Favorites</string>
     <string name="menu_send_feedback">Send Feedback</string>
+    <string name="menu_about">About</string>
     <string name="confirm_dialog_title">Confirm Order</string>
     <string name="confirm_dialog_message">Is your order ready?</string>
     <string name="confirm_dialog_yes">Yes</string>
     <string name="confirm_dialog_no">No</string>
+    <string name="menu_remove_from_favorites">Remove from Favorites</string>
+    <string name="confirm_order">Your Order is Confirmed.</string>
+    <string name="app_title">Pizza Order App</string>
     <string-array name="cities_array">
         <item>Sofia</item>
         <item>Plovdiv</item>

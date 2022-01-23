@@ -1,8 +1,14 @@
 package com.example.f102258.pizzaOrder
 
 import android.app.ActivityManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,12 +18,21 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.f102258.R
 import com.example.f102258.data.DatabaseHandler
 import com.example.f102258.helpers.PizzaOrderHelper
+import com.example.f102258.pizzasList.PizzasListActivity
 import com.example.f102258.services.PlaySoundService
+import kotlin.random.Random
 
 class PizzaOrderActivity : AppCompatActivity() {
+    companion object {
+        const val channelId = "Notification channel id"
+        const val channelDescription = "Notification channel description here"
+    }
+
     private val viewModel by viewModels<PizzaOrderViewModel> {
         PizzaOrderViewModelFactory(this)
     }
@@ -34,6 +49,7 @@ class PizzaOrderActivity : AppCompatActivity() {
         configurePizzaView()
         configureButtons()
         configureTextViews()
+        createNotificationChannel()
     }
 
     override fun onDestroy() {
@@ -51,6 +67,9 @@ class PizzaOrderActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_add_to_fav -> {
                 viewModel.addPizzaToFavorite(this)
+            }
+            R.id.menu_remove_from_fav -> {
+                viewModel.removePizzaFromFavorite(this)
             }
             R.id.menu_show_fav -> {
                 val pizzas = DatabaseHandler(this).getPizzas()
@@ -99,7 +118,9 @@ class PizzaOrderActivity : AppCompatActivity() {
         removePizzaButton = findViewById(R.id.decrement_button)
         removePizzaButton.setOnClickListener { viewModel.removePizza() }
         submitOrderButton = findViewById(R.id.submit_button)
-        submitOrderButton.setOnClickListener { showAlert() }
+        submitOrderButton.setOnClickListener {
+            showAlert()
+        }
     }
 
     private fun showAlert() {
@@ -107,12 +128,36 @@ class PizzaOrderActivity : AppCompatActivity() {
         alertDialog.setTitle(getString(R.string.confirm_dialog_title))
         alertDialog.setMessage(getString(R.string.confirm_dialog_message))
         alertDialog.setPositiveButton(getString(R.string.confirm_dialog_yes)) { _, _ ->
-            viewModel.addPizza()
             startService()
+            sendNotification()
         }
         alertDialog.setNegativeButton(getString(R.string.confirm_dialog_no)) { _, _ -> }
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    private fun sendNotification() {
+        val builder = NotificationCompat.Builder(this, Companion.channelId)
+            .setSmallIcon(R.drawable.ic_notification_icon)
+            .setContentTitle(getString(R.string.app_title))
+            .setContentText(getString(R.string.confirm_order))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+        with(NotificationManagerCompat.from(this)) {
+            notify((0..2147483647).random(), builder.build())
+        }
+    }
+
+    private fun createNotificationChannel() {
+            val name = channelId
+            val descriptionText = channelDescription
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
     }
 
     private fun isServiceRunning(serviceClass: Class<*>): Boolean {
