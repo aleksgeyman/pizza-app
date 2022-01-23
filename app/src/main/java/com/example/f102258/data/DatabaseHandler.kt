@@ -8,6 +8,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
 
+// CRUD operations for pizza objects in SQLite
 class DatabaseHandler(context: Context) :
     SQLiteOpenHelper(context, dbName, null, dbVersion) {
     companion object {
