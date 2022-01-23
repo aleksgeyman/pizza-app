@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.f102258.R
 import com.example.f102258.data.DatabaseHandler
 import com.example.f102258.data.Pizza
+import com.example.f102258.helpers.PizzaOrderHelper
 import com.example.f102258.pizzasList.PizzasListViewModel
 import com.example.f102258.pizzasList.PizzasListViewModelFactory
 import com.example.f102258.services.PlaySoundService
@@ -60,11 +61,17 @@ class PizzaOrderActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_add_to_fav) {
-            DatabaseHandler(this).addPizza(viewModel.pizza!!)
-        } else if (item.itemId == R.id.menu_show_fav) {
-            val pizzas = DatabaseHandler(this).getPizzas()
-            pizzas.forEach {it -> Log.i("Pizza", it.name)}
+        when (item.itemId) {
+            R.id.menu_add_to_fav -> {
+                DatabaseHandler(this).addPizza(viewModel.pizza!!)
+            }
+            R.id.menu_show_fav -> {
+                val pizzas = DatabaseHandler(this).getPizzas()
+                pizzas.forEach {it -> Log.i("Pizza", it.name)}
+            }
+            R.id.menu_send_feedback -> {
+                PizzaOrderHelper.sendEmail(this, "", "", "")
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -14,5 +14,9 @@
         android:id="@+id/menu_show_fav"
         android:title="@string/menu_show_favorites"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_send_feedback"
+        android:title="@string/menu_send_feedback"
+        app:showAsAction="never" />
 
 </menu>

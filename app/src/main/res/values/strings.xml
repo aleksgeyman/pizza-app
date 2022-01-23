@@ -13,6 +13,7 @@
     <string name="menu_my_order">My Order</string>
     <string name="menu_add_to_favorites">Add to Favorites</string>
     <string name="menu_show_favorites">Show Favorites</string>
+    <string name="menu_send_feedback">Send Feedback</string>
     <string-array name="cities_array">
         <item>Sofia</item>
         <item>Plovdiv</item>
