@@ -14,10 +14,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.example.f102258.R
 import com.example.f102258.data.DatabaseHandler
-import com.example.f102258.data.Pizza
 import com.example.f102258.helpers.PizzaOrderHelper
-import com.example.f102258.pizzasList.PizzasListViewModel
-import com.example.f102258.pizzasList.PizzasListViewModelFactory
 import com.example.f102258.services.PlaySoundService
 
 class PizzaOrderActivity : AppCompatActivity() {
@@ -25,26 +22,16 @@ class PizzaOrderActivity : AppCompatActivity() {
         PizzaOrderViewModelFactory(this)
     }
 
-    private var pizzaTotalPriceText: TextView? = null
-    private var pizzaCountText: TextView? = null
-    private var addPizzaButton: Button? = null
-    private var removePizzaButton: Button? = null
-    private var submitOrderButton: Button? = null
+    private lateinit var pizzaTotalPriceText: TextView
+    private lateinit var pizzaCountText: TextView
+    private lateinit var addPizzaButton: Button
+    private lateinit var removePizzaButton: Button
+    private lateinit var submitOrderButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pizza_order)
-        val pizzaNameTextView: TextView = findViewById(R.id.pizza_name)
-        val pizzaDescriptionTextView: TextView = findViewById(R.id.pizza_description)
-        val pizzaPriceTextView: TextView = findViewById(R.id.pizza_price)
-        val currentPizzaId = intent.extras?.getInt(R.string.pizza_id.toString())
-        currentPizzaId?.let {
-            val currentPizza = viewModel.getPizza(it)
-            viewModel.updateTotalPrice()
-            pizzaNameTextView.text = currentPizza?.name
-            pizzaDescriptionTextView.text = currentPizza?.description
-            pizzaPriceTextView.text = currentPizza?.price.toString()
-        }
+        configurePizzaView()
         configureButtons()
         configureTextViews()
     }
@@ -63,11 +50,11 @@ class PizzaOrderActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_add_to_fav -> {
-                DatabaseHandler(this).addPizza(viewModel.pizza!!)
+                viewModel.addPizzaToFavorite(this)
             }
             R.id.menu_show_fav -> {
                 val pizzas = DatabaseHandler(this).getPizzas()
-                pizzas.forEach {it -> Log.i("Pizza", it.name)}
+                pizzas.forEach { it -> Log.i("Pizza", it.name) }
             }
             R.id.menu_send_feedback -> {
                 PizzaOrderHelper.sendEmail(this, "", "", "")
@@ -76,40 +63,54 @@ class PizzaOrderActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun configurePizzaView() {
+        val pizzaNameTextView: TextView = findViewById(R.id.pizza_name)
+        val pizzaDescriptionTextView: TextView = findViewById(R.id.pizza_description)
+        val pizzaPriceTextView: TextView = findViewById(R.id.pizza_price)
+        val currentPizzaId = intent.extras?.getInt(R.string.pizza_id.toString())
+        currentPizzaId?.let {
+            val currentPizza = viewModel.getPizza(it)
+            viewModel.updateTotalPrice()
+            pizzaNameTextView.text = currentPizza?.name
+            pizzaDescriptionTextView.text = currentPizza?.description
+            pizzaPriceTextView.text = currentPizza?.price.toString()
+        }
+    }
+
     private fun configureTextViews() {
         pizzaCountText = findViewById(R.id.pizzas_count_tv)
         viewModel.orderCount.observe(this, {
             it?.let {
-                pizzaCountText?.text = it.toString()
+                pizzaCountText.text = it.toString()
             }
         })
 
         pizzaTotalPriceText = findViewById(R.id.pizza_price)
         viewModel.totalPrice.observe(this, {
             it?.let {
-                pizzaTotalPriceText?.text = it.toString()
+                pizzaTotalPriceText.text = it.toString()
             }
         })
     }
 
     private fun configureButtons() {
         addPizzaButton = findViewById(R.id.increment_button)
-        addPizzaButton?.setOnClickListener { viewModel.addPizza() }
+        addPizzaButton.setOnClickListener { viewModel.addPizza() }
         removePizzaButton = findViewById(R.id.decrement_button)
-        removePizzaButton?.setOnClickListener { viewModel.removePizza() }
+        removePizzaButton.setOnClickListener { viewModel.removePizza() }
         submitOrderButton = findViewById(R.id.submit_button)
-        submitOrderButton?.setOnClickListener { showAlert() }
+        submitOrderButton.setOnClickListener { showAlert() }
     }
 
     private fun showAlert() {
         val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setTitle("Confirm Order")
-        alertDialog.setMessage("Is your order ready?")
-        alertDialog.setPositiveButton("Yes") { _, _ ->
+        alertDialog.setTitle(getString(R.string.confirm_dialog_title))
+        alertDialog.setMessage(getString(R.string.confirm_dialog_message))
+        alertDialog.setPositiveButton(getString(R.string.confirm_dialog_yes)) { _, _ ->
             viewModel.addPizza()
             startService()
         }
-        alertDialog.setNegativeButton("No") { _, _ -> }
+        alertDialog.setNegativeButton(getString(R.string.confirm_dialog_no)) { _, _ -> }
         alertDialog.setCancelable(false)
         alertDialog.show()
     }

@@ -14,6 +14,10 @@
     <string name="menu_add_to_favorites">Add to Favorites</string>
     <string name="menu_show_favorites">Show Favorites</string>
     <string name="menu_send_feedback">Send Feedback</string>
+    <string name="confirm_dialog_title">Confirm Order</string>
+    <string name="confirm_dialog_message">Is your order ready?</string>
+    <string name="confirm_dialog_yes">Yes</string>
+    <string name="confirm_dialog_no">No</string>
     <string-array name="cities_array">
         <item>Sofia</item>
         <item>Plovdiv</item>
